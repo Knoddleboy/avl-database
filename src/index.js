@@ -35,6 +35,7 @@ class Circle {
         this.size = size;
     }
 
+    // FIX: Resize observer
     draw() {
         const ctx = canvasBlock.ctx;
         ctx.beginPath();
