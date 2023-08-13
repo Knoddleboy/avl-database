@@ -1,0 +1,266 @@
+@import "../../styles/variables.module.scss";
+
+$accent-bg-color: lighten($system-tertiary-dark, 33%);
+$accent-border-color: lighten($system-tertiary-dark, 28%);
+$table-padding: 20px;
+
+$search-height: 12%;
+$table-head-height: 32px;
+$table-row-height: 34px;
+
+$table-inner-padding: 10px;
+
+.workbenchRoot {
+    width: 74%;
+    height: 100vh;
+    position: relative;
+    border-left: 1px solid $accent-border-color;
+}
+
+.workbenchEmpty {
+    @include headline;
+    color: lighten($system-tertiary-dark, 20%);
+    text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.working {
+    width: 100%;
+    height: $search-height;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .searchInput {
+        width: 60%;
+        display: flex;
+        align-items: center;
+
+        $input-border-radius: 8px;
+
+        label {
+            height: 32px;
+            @include center;
+            background-color: $accent-bg-color;
+            border-radius: $input-border-radius 0 0 $input-border-radius;
+            border: 1px solid $accent-border-color;
+            border-right: none;
+            padding-left: 4px;
+        }
+
+        input {
+            width: 100%;
+            padding: 4px;
+            background-color: $accent-bg-color;
+            border-radius: 0 $input-border-radius $input-border-radius 0;
+            border: 1px solid $accent-border-color;
+            border-left: none;
+            outline: none;
+
+            &::placeholder {
+                color: inherit;
+                opacity: 0.5;
+            }
+        }
+    }
+}
+
+.dataRowHead {
+    width: 100%;
+    height: $table-head-height;
+    font-weight: 600;
+    background-color: $accent-bg-color;
+    border-bottom: 2px solid $accent-border-color;
+
+    .dataKeyField {
+        width: 20%;
+        height: 100%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: $table-inner-padding;
+        border-right: 1px solid $accent-border-color;
+    }
+
+    .dataValueField {
+        width: 80%;
+        height: 100%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: $table-inner-padding;
+    }
+}
+
+.displayTableRoot {
+    width: 100%;
+    height: calc(100% - ($search-height + $table-head-height + $panel-height - 1px));
+    overflow-y: scroll;
+
+    h4 {
+        text-align: center;
+    }
+
+    .dataRow {
+        width: 100%;
+        height: $table-row-height;
+        display: flex;
+        align-items: center;
+        transition: background-color 50ms cubic-bezier(0, 0, 0.5, 1);
+
+        &[color-field="1"] {
+            background-color: lighten($system-tertiary-dark, 32%);
+        }
+
+        input {
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            border-radius: 2px;
+        }
+
+        &:nth-of-type(1) {
+            input {
+                height: calc(100% - 3px);
+                top: 3px;
+            }
+        }
+
+        &:nth-last-of-type(1) {
+            border-bottom: 1px solid lighten($system-tertiary-dark, 29%);
+
+            input {
+                height: calc(100% - 3px);
+            }
+        }
+    }
+
+    .dataRowSelected {
+        background-color: lighten($system-tertiary-dark, 18%) !important;
+    }
+
+    .dataKeyField {
+        width: 20%;
+        height: 100%;
+        display: inline-flex;
+        justify-content: flex-start;
+        align-items: center;
+        position: relative;
+        border-right: 1px solid lighten($system-tertiary-dark, 29%);
+
+        input {
+            width: calc(100% - 3px);
+            left: 3px;
+            padding: 4px calc($table-inner-padding - 3px);
+        }
+
+        span {
+            width: 100%;
+            display: inline-block;
+            margin-left: $table-inner-padding;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    .dataValueField {
+        width: 80%;
+        min-width: 0;
+        height: 100%;
+        padding-right: $table-padding;
+        display: inline-flex;
+        justify-content: flex-start;
+        align-items: center;
+        position: relative;
+
+        input {
+            width: calc(100% - 3px);
+            padding: 4px $table-inner-padding;
+        }
+
+        span {
+            width: 100%;
+            display: inline-block;
+            margin-left: $table-inner-padding;
+            // overflow-x: scroll;
+            // scrollbar-width: thin;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+.bottomPanel {
+    width: 100%;
+    height: $panel-height;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $panel-padding 20px;
+    border-top: 2px solid $accent-border-color;
+    font-size: small;
+    background-color: white;
+
+    .dataView {
+        display: flex;
+
+        button {
+            padding: 2px 10px;
+            border: 1px solid $accent-border-color;
+            font-weight: 500;
+
+            &:nth-of-type(1) {
+                border-radius: 5px 0 0 5px;
+                border-right: none;
+            }
+
+            &:nth-of-type(2) {
+                border-radius: 0 5px 5px 0;
+                border-left: none;
+            }
+        }
+    }
+
+    .rowsEdit {
+        display: flex;
+        position: relative;
+
+        button {
+            padding: 1px 4px;
+            border: 1px solid $accent-border-color;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        button:not(.actionButton) {
+            padding: 1px 4px;
+            margin-right: 10px;
+        }
+
+        .actionButton {
+            padding: 0 4px;
+        }
+
+        .actionButtonDialog {
+            width: 70%;
+            position: absolute;
+            top: -210%;
+            right: 0;
+            padding: 8px;
+            background-color: lighten($system-tertiary-dark, 27%);
+            border: 1px solid lighten($system-tertiary-dark, 21%);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+    }
+}

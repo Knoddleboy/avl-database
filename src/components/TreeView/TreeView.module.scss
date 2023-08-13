@@ -1,0 +1,59 @@
+@import "../../styles/variables.module.scss";
+@import "../Workbench/Workbench.module.scss";
+
+$node-gap: 12px;
+
+.treeViewRoot {
+    width: 100%;
+    height: calc(100% - ($search-height + $table-head-height + $panel-height - 1px));
+    padding: $node-gap;
+    overflow: scroll !important;
+}
+
+.treeDataNode {
+    width: fit-content;
+    padding: calc($node-gap / 2) $node-gap;
+    margin: $node-gap;
+    background-color: lighten($system-tertiary-dark, 32%);
+    border-radius: 6px;
+
+    &::before,
+    &::after {
+        background-color: lighten($system-tertiary-dark, 28%);
+    }
+
+    display: flex;
+    justify-content: center;
+
+    &:first-of-type {
+        margin-top: 0;
+    }
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+
+    div[data-attr] {
+        display: inline-block;
+
+        &:not(:last-of-type) {
+            margin-right: 12px;
+        }
+    }
+
+    div[data-attr="key"] {
+        b {
+            font-size: x-small;
+            text-transform: uppercase;
+            opacity: .28;
+            margin-right: calc($node-gap / 2);
+        }
+    }
+
+    div[data-attr="value"] {
+        max-width: 15ch;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap;
+    }
+}
